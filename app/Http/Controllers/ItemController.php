@@ -32,30 +32,20 @@ class ItemController extends Controller
      * Slaat de data uit het 'create' formulier op in de database.
      */
     public function store(Request $request)
-{
-    $data = $request->validate([
-        'name' => 'required',
-        'category' => 'required',
-        'description' => 'required',
-        'price' => 'required|numeric',
-    ]);
-
-    $data['created_at'] = now();
-    $data['updated_at'] = now();
-
-    \Illuminate\Support\Facades\DB::table('items')->insert($data);
-    
-    return redirect()->route('items.index')->with('success', 'Item succesvol toegevoegd!');
-}
-
-    /**
-     * Display the specified resource.
-     * Optioneel: Voor als je één specifiek item in detail wilt bekijken.
-     */
-    public function show(string $id)
     {
-        $item = Item::findOrFail($id);
-        return view('dashboard.show', compact('item'));
+        $data = $request->validate([
+            'name' => 'required',
+            'category' => 'required',
+            'description' => 'required',
+            'price' => 'required|numeric',
+        ]);
+
+        $data['created_at'] = now();
+        $data['updated_at'] = now();
+
+        DB::table('items')->insert($data);
+
+        return redirect()->route('items.index')->with('success', 'Item succesvol toegevoegd!');
     }
 
     /**
