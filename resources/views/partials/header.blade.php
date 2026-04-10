@@ -20,30 +20,17 @@
                 </li>
                 
                 @auth
-                    {{-- Wat de ingelogde gebruiker ziet --}}
                     <li>
                         <a href="{{ route('dashboard') }}" class="nav-link nav-link-admin">
                             Dashboard
                         </a>
                     </li>
                 @else
-                    {{-- Wat een bezoeker (niet ingelogd) ziet --}}
                     <li>
                         <a href="{{ route('login') }}" class="nav-link nav-link-admin">
                             Log in
                         </a>
                     </li>
-                    
-                    {{-- Optioneel: Haal dit uit de comment tags als je ook een 'Registreer' knop wilt --}}
-                    {{-- 
-                    @if (Route::has('register'))
-                        <li>
-                            <a href="{{ route('register') }}" class="nav-link nav-link-admin">
-                                Registreer
-                            </a>
-                        </li>
-                    @endif 
-                    --}}
                 @endauth
             </ul>
         </nav>
