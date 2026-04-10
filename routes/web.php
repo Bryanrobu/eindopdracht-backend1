@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ItemController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -8,15 +9,22 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/menu', function () {
-    return view('welcome');
+    $items = DB::table('items')->get();
+    return view('menu', ['items' => $items]);
 })->name('menu');
+
+Route::resource('items', ItemController::class);
 
 Route::get('/contact', function () {
     return view('welcome');
 })->name('contact');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    // Haal de items op via de DB facade
+    $items = \Illuminate\Support\Facades\DB::table('items')->get();
+    
+    // Stuur ze mee naar de 'dashboard' view
+    return view('dashboard.index', compact('items'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

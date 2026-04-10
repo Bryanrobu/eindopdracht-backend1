@@ -3,8 +3,28 @@
 @tailwind utilities;
 
 /* ========================================
-   Reset & Base Styles
+   Admin Dashboard
    ======================================== */
+
+/* CSS Variables (Kleurenpalet) */
+:root {
+    --color-primary: #E67E22;
+    /* Oranje */
+    --color-primary-dark: #D35400;
+    --color-secondary: #2C3E50;
+    /* Antraciet */
+    --color-secondary-dark: #1a252f;
+    --color-white: #FFFFFF;
+    --color-beige: #F5E6D3;
+    --color-gray-light: #ECF0F1;
+    --color-text: #2C3E50;
+    --color-text-light: #7F8C8D;
+    --color-danger: #EF4444;
+    --color-success-bg: #D1FAE5;
+    --color-success-text: #065F46;
+}
+
+/* Reset & Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -15,6 +35,13 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     color: var(--color-text);
     background-color: var(--color-white);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1 0 auto;
 }
 
 a {
@@ -22,33 +49,18 @@ a {
     color: inherit;
 }
 
-/* ========================================
-   CSS Variables (Kleurenpalet)
-   ======================================== */
-:root {
-    --color-primary: #E67E22;        /* Oranje */
-    --color-primary-dark: #D35400;   
-    --color-secondary: #2C3E50;      /* Antraciet */
-    --color-secondary-dark: #1a252f; 
-    --color-white: #FFFFFF;
-    --color-beige: #F5E6D3;
-    --color-gray-light: #ECF0F1;
-    --color-text: #2C3E50;
-    --color-text-light: #7F8C8D;
+.footer {
+    flex-shrink: 0;
 }
 
-/* ========================================
-   Utility Classes
-   ======================================== */
+/* Utility Classes */
 .container {
     max-width: 1280px;
     margin: 0 auto;
     padding: 0 1rem;
 }
 
-/* ========================================
-   Header & Navigation
-   ======================================== */
+/* Header & Navigation */
 .header {
     background-color: var(--color-secondary);
     padding: 1rem 0;
@@ -91,9 +103,7 @@ a {
     color: var(--color-primary-dark);
 }
 
-/* ========================================
-   Footer
-   ======================================== */
+/* Footer */
 .footer {
     background-color: var(--color-secondary);
     color: var(--color-white);
@@ -125,9 +135,7 @@ a {
     color: var(--color-gray-light);
 }
 
-/* ========================================
-   Filler Styling
-   ======================================== */
+/* Filler Styling */
 .section {
     padding: 5rem 0;
 }
@@ -150,9 +158,17 @@ a {
     margin-bottom: 3rem;
 }
 
-.text-center { text-align: center; }
-.text-large { font-size: 1.25rem; }
-.mb-4 { margin-bottom: 1rem; }
+.text-center {
+    text-align: center;
+}
+
+.text-large {
+    font-size: 1.25rem;
+}
+
+.mb-4 {
+    margin-bottom: 1rem;
+}
 
 /* Hero */
 .hero {
@@ -190,10 +206,26 @@ a {
     cursor: pointer;
 }
 
-.btn-primary { background: var(--color-primary); color: white; }
-.btn-primary:hover { background: var(--color-primary-dark); }
-.btn-secondary { background: var(--color-secondary); color: white; border: 1px solid white; }
-.btn-block { width: 100%; display: block; text-align: center; }
+.btn-primary {
+    background: var(--color-primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--color-primary-dark);
+}
+
+.btn-secondary {
+    background: var(--color-secondary);
+    color: white;
+    border: 1px solid white;
+}
+
+.btn-block {
+    width: 100%;
+    display: block;
+    text-align: center;
+}
 
 /* Grid & Cards */
 .grid {
@@ -206,7 +238,7 @@ a {
     background: white;
     border-radius: 1rem;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .card-image img {
@@ -215,7 +247,9 @@ a {
     object-fit: cover;
 }
 
-.card-content { padding: 1.5rem; }
+.card-content {
+    padding: 1.5rem;
+}
 
 .card-header {
     display: flex;
@@ -223,9 +257,21 @@ a {
     margin-bottom: 1rem;
 }
 
-.card-title { font-size: 1.5rem; color: var(--color-secondary); }
-.card-price { color: var(--color-primary); font-weight: 700; font-size: 1.25rem; }
-.card-description { color: var(--color-text-light); margin-bottom: 1.5rem; }
+.card-title {
+    font-size: 1.5rem;
+    color: var(--color-secondary);
+}
+
+.card-price {
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+.card-description {
+    color: var(--color-text-light);
+    margin-bottom: 1.5rem;
+}
 
 /* About & Contact cards */
 .about-grid {
@@ -235,7 +281,10 @@ a {
     align-items: center;
 }
 
-.about-image img { border-radius: 1.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+.about-image img {
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
 
 .contact-preview-grid {
     display: grid;
@@ -252,7 +301,232 @@ a {
 }
 
 @media (max-width: 768px) {
-    .about-grid { grid-template-columns: 1fr; text-align: center; }
-    .hero-title { font-size: 2.5rem; }
-    .hero-buttons { flex-direction: column; }
+    .about-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
 }
+
+/* ========================================
+   ADMIN DASHBOARD (Verbeterd Contrast & Kleur)
+   ======================================== */
+
+.admin-body {
+    /* Dwingt de hele pagina naar een zachte grijstint zodat de witte kaart 'popt' */
+    background-color: #f1f5f9 !important; 
+    min-height: 100vh;
+}
+
+.admin-main {
+    flex-grow: 1;
+    padding: 3rem 1rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.admin-card {
+    background-color: var(--color-white);
+    padding: 2.5rem;
+    border-radius: 12px;
+    /* Sterkere schaduw voor meer diepte tegen de grijze achtergrond */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); 
+    border-top: 5px solid var(--color-primary);
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.admin-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--color-secondary);
+}
+
+/* Verbeterde Oranje Knop */
+.btn-primary-sm {
+    background-color: var(--color-primary);
+    color: var(--color-white) !important;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+    white-space: nowrap;
+    box-shadow: 0 4px 6px rgba(230, 126, 34, 0.2);
+}
+
+.btn-primary-sm:hover {
+    background-color: var(--color-primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px rgba(230, 126, 34, 0.3);
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-table th {
+    text-align: left;
+    padding: 1rem;
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    background-color: #f8fafc; /* Heel lichtgrijze header voor de tabel */
+    border-bottom: 2px solid var(--color-secondary);
+}
+
+.admin-table td {
+    padding: 1.25rem 1rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+/* Verbeterde Tabel Acties */
+.table-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    align-items: center;
+}
+
+.action-link {
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 15px;
+    transition: color 0.2s;
+}
+
+.action-edit {
+    color: var(--color-secondary);
+}
+
+.action-edit:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
+.action-delete {
+    color: var(--color-danger);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.action-delete:hover {
+    color: #b91c1c;
+    text-decoration: underline;
+}
+
+/* ========================================
+   ADMIN FORM STYLING (Verbeterd Contrast)
+   ======================================== */
+
+.admin-form-group {
+    margin-bottom: 1.5rem;
+}
+
+.admin-label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: var(--color-secondary);
+}
+
+.admin-input,
+.admin-textarea {
+    width: 100%;
+    padding: 0.85rem;
+    /* Gebruik een heel lichte grijstint voor de invulvelden zodat ze opvallen op wit */
+    background-color: #f8fafc; 
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--color-secondary);
+    transition: all 0.2s ease;
+}
+
+.admin-input:focus,
+.admin-textarea:focus {
+    outline: none;
+    background-color: var(--color-white);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 4px rgba(230, 126, 34, 0.1);
+}
+
+.btn-secondary {
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+    padding: 1rem 1.5rem;
+    border-radius: 6px;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-secondary-dark);
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+/* ========================================
+   ALERTS & UTILITIES
+   ======================================== */
+
+.alert-success {
+    background-color: #ecfdf5;
+    color: #065f46;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    border-left: 5px solid #10B981;
+    font-weight: 600;
+}
+
+.alert-danger {
+    background-color: #fef2f2;
+    color: #991B1B;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    border-left: 5px solid var(--color-danger);
+    font-weight: 600;
+}
+
+.font-bold { font-weight: bold; }
+.text-primary { color: var(--color-primary); }
+.text-light { color: var(--color-text-light); }
+.text-right { text-align: right; }
