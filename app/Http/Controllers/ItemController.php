@@ -8,29 +8,17 @@ use Illuminate\Support\Facades\DB;
 
 class ItemController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * Dit wordt je dashboard overzicht met alle items.
-     */
     public function index()
     {
         $items = DB::table('items')->get();
         return view('dashboard.index', compact('items'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * Toont de pagina om een nieuw gerecht toe te voegen.
-     */
     public function create()
     {
         return view('dashboard.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * Slaat de data uit het 'create' formulier op in de database.
-     */
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -48,10 +36,6 @@ class ItemController extends Controller
         return redirect()->route('items.index')->with('success', 'Item succesvol toegevoegd!');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * Toont het formulier, vooringevuld met de huidige data van het item.
-     */
     public function edit(string $id)
     {
         $item = DB::table('items')->where('id', $id)->first();
@@ -63,10 +47,6 @@ class ItemController extends Controller
         return view('dashboard.edit', compact('item'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     * Slaat de wijzigingen uit het 'edit' formulier op.
-     */
     public function update(Request $request, string $id)
     {
         $data = $request->validate([
@@ -85,10 +65,6 @@ class ItemController extends Controller
         return redirect()->route('items.index')->with('success', 'Item succesvol bijgewerkt!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * Verwijdert het item uit de database.
-     */
     public function destroy(string $id)
     {
         DB::table('items')

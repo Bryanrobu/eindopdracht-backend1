@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Dashboard</title>
+    <title>Admin Dashboard - De WaalBurger</title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -14,67 +14,94 @@
     @include('partials.header')
 
     <main class="admin-main">
-        <div class="admin-card">
+        <div class="container py-8">
+            
+            {{-- SECTIE 1: MENU BEHEER --}}
+            <div class="admin-card mb-8">
+                @if(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
 
-            @if(session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
+                <div class="admin-header">
+                    <h1 class="admin-title">Menu Beheer</h1>
+                    <a href="{{ route('items.create') }}" class="btn btn-primary btn-large" style="padding: 0.5rem 1rem; font-size: 0.9rem;">
+                        + Nieuw Gerecht
+                    </a>
                 </div>
-            @endif
 
-            <div class="admin-header">
-                <h1 class="admin-title">Menu Beheer</h1>
-                <a href="{{ route('items.create') }}" class="btn-primary-sm">
-                    + Nieuw Gerecht
-                </a>
+                <div class="table-responsive">
+                    <table class="admin-table" style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="text-align: left; border-bottom: 2px solid #eee;">
+                                <th style="padding: 1rem;">Naam</th>
+                                <th style="padding: 1rem;">Categorie</th>
+                                <th style="padding: 1rem;">Prijs</th>
+                                <th style="padding: 1rem; text-align: right;">Acties</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($items as $item)
+                                <tr style="border-bottom: 1px solid #eee;">
+                                    <td style="padding: 1rem;"><strong>{{ $item->name }}</strong></td>
+                                    <td style="padding: 1rem; color: #7f8c8d;">{{ $item->category }}</td>
+                                    <td style="padding: 1rem; color: #E67E22; font-weight: bold;">€{{ number_format($item->price, 2, ',', '.') }}</td>
+                                    <td style="padding: 1rem; text-align: right;">
+                                        <a href="{{ route('items.edit', $item->id) }}" style="color: #2C3E50; margin-right: 10px; text-decoration: underline;">Bewerk</a>
+                                        <form action="{{ route('items.destroy', $item->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Weet je zeker?')">
+                                            @csrf @method('DELETE')
+                                            <button type="submit" style="color: #e74c3c; background: none; border: none; cursor: pointer; text-decoration: underline;">Verwijder</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr><td colspan="4" style="padding: 2rem; text-align: center;">Geen gerechten gevonden.</td></tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
-            <div class="table-responsive">
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>Naam</th>
-                            <th>Categorie</th>
-                            <th>Prijs</th>
-                            <th class="text-right">Acties</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($items as $item)
-                            <tr>
-                                <td><strong>{{ $item->name }}</strong></td>
-                                <td class="text-light">{{ $item->category }}</td>
-                                <td class="text-primary font-bold">€{{ number_format($item->price, 2, ',', '.') }}</td>
-                                <td class="table-actions text-right">
-                                    <a href="{{ route('items.edit', $item->id) }}" class="action-link action-edit">
-                                        Bewerk
-                                    </a>
+            {{-- SECTIE 2: CONTACTBERICHTEN (NIEUW) --}}
+            <div class="admin-card">
+                <div class="admin-header">
+                    <h1 class="admin-title">Ontvangen Berichten</h1>
+                </div>
 
-                                    <form action="{{ route('items.destroy', $item->id) }}" method="POST"
-                                        onsubmit="return confirm('Weet je zeker dat je dit gerecht wilt verwijderen?');"
-                                        style="display: inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="action-link action-delete">
-                                            Verwijder
-                                        </button>
-                                    </form>
-                                </td>
+                <div class="table-responsive">
+                    <table class="admin-table" style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="text-align: left; border-bottom: 2px solid #eee;">
+                                <th style="padding: 1rem;">Datum</th>
+                                <th style="padding: 1rem;">Naam</th>
+                                <th style="padding: 1rem;">E-mail</th>
+                                <th style="padding: 1rem;">Bericht</th>
                             </tr>
-                        @empty
-                            <tr>
-                                <td colspan="4" class="empty-state">
-                                    Er staan nog geen gerechten op het menu.
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @forelse($messages as $msg)
+                                <tr style="border-bottom: 1px solid #eee;">
+                                    <td style="padding: 1rem; white-space: nowrap;">{{ $msg->created_at->format('d-m-Y H:i') }}</td>
+                                    <td style="padding: 1rem;"><strong>{{ $msg->name }}</strong></td>
+                                    <td style="padding: 1rem;"><a href="mailto:{{ $msg->email }}" style="color: #3498db;">{{ $msg->email }}</a></td>
+                                    <td style="padding: 1rem; font-style: italic;">"{{ $msg->message }}"</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="4" style="padding: 2rem; text-align: center; color: #7f8c8d;">
+                                        Nog geen contactberichten ontvangen.
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
         </div>
     </main>
+
     @include('partials.footer')
 </body>
-
 </html>

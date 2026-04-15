@@ -530,3 +530,25 @@ a {
 .text-primary { color: var(--color-primary); }
 .text-light { color: var(--color-text-light); }
 .text-right { text-align: right; }
+
+/* Zorg dat lange teksten in de tabel netjes afbreken */
+.admin-table td {
+    word-break: break-word; /* Breekt lange woorden af */
+    overflow-wrap: break-word;
+    max-width: 300px; /* Voorkomt dat de kolom te breed wordt */
+    vertical-align: top;
+    padding: 1rem;
+}
+
+/* Zorg dat de tabel niet buiten de kaart groeit */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* Dwingt de breedte af */
+}
