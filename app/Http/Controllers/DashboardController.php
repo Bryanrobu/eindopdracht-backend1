@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Models\ContactMessage;
+use App\Models\Item;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $items = DB::table('items')->get();
+        $items = Item::all();
         
         $messages = ContactMessage::latest()->get();
         

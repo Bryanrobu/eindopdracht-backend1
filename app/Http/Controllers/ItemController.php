@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\ContactMessage;
+use App\Models\Item;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class ItemController extends Controller
 {
     public function index()
     {
         $messages = ContactMessage::latest()->get();
-        $items = DB::table('items')->get();
+        $items = Item::all();
         return view('dashboard.index', compact('items', 'messages'));
     }
 
@@ -29,21 +29,14 @@ class ItemController extends Controller
             'price' => 'required|numeric',
         ]);
 
-        $data['created_at'] = now();
-        $data['updated_at'] = now();
-
-        DB::table('items')->insert($data);
+        Item::create($data);
 
         return redirect()->route('items.index')->with('success', 'Item succesvol toegevoegd!');
     }
 
     public function edit(string $id)
     {
-        $item = DB::table('items')->where('id', $id)->first();
-
-        if (!$item) {
-            return redirect()->route('items.index')->with('error', 'Item niet gevonden.');
-        }
+        $item = Item::findOrFail($id);
 
         return view('dashboard.edit', compact('item'));
     }
@@ -57,20 +50,16 @@ class ItemController extends Controller
             'price' => 'required|numeric',
         ]);
 
-        $data['updated_at'] = now();
-
-        DB::table('items')
-            ->where('id', $id)
-            ->update($data);
+        $item = Item::findOrFail($id);
+        $item->update($data);
 
         return redirect()->route('items.index')->with('success', 'Item succesvol bijgewerkt!');
     }
 
     public function destroy(string $id)
     {
-        DB::table('items')
-            ->where('id', $id)
-            ->delete();
+        $item = Item::findOrFail($id);
+        $item->delete();
 
         return redirect()->route('items.index')->with('success', 'Item definitief verwijderd!');
     }
