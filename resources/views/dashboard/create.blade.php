@@ -17,7 +17,7 @@
 
             <div class="admin-header">
                 <h1 class="admin-title">Nieuw Gerecht</h1>
-                <a href="{{ route('items.index') }}" class="text-light">Terug naar overzicht</a>
+                <a href="{{ route('dashboard') }}" class="text-light">Terug naar overzicht</a>
             </div>
 
             @if ($errors->any())
