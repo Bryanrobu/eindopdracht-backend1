@@ -22,16 +22,10 @@ Route::get('/contact', function () {
 
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
-Route::get('/dashboard', [ContactController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
-
 Route::get('/dashboard', function () {
-    // Haal de items op via de DB facade
     $items = \Illuminate\Support\Facades\DB::table('items')->get();
     $messages = \App\Models\ContactMessage::latest()->get();
     
-    // Stuur ze mee naar de 'dashboard' view
     return view('dashboard.index', compact('items', 'messages'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
