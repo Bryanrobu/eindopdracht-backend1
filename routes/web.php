@@ -15,7 +15,7 @@ Route::get('/menu', function () {
     return view('menu', ['items' => $items]);
 })->name('menu');
 
-Route::resource('items', ItemController::class);
+Route::resource('items', ItemController::class)->middleware(['auth', 'verified']);
 
 Route::get('/contact', function () {
     return view('contact');
