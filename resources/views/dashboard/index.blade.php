@@ -16,7 +16,6 @@
     <main class="admin-main">
         <div class="container py-8">
             
-            {{-- SECTIE 1: MENU BEHEER --}}
             <div class="admin-card mb-8">
                 @if(session('success'))
                     <div class="alert alert-success">
@@ -63,7 +62,6 @@
                 </div>
             </div>
 
-            {{-- SECTIE 2: CONTACTBERICHTEN (NIEUW) --}}
             <div class="admin-card">
                 <div class="admin-header">
                     <h1 class="admin-title">Ontvangen Berichten</h1>
