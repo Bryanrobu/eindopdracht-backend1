@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ContactMessage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ContactController extends Controller
 {
@@ -19,7 +20,7 @@ class ContactController extends Controller
     }
 
     public function index() {
-        $items = [];
+        $items = DB::table('items')->get();
         $messages = ContactMessage::latest()->get();
         return view('dashboard.index', compact('items', 'messages'));
     }

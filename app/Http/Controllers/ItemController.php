@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Item;
+use App\Models\ContactMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -10,8 +10,9 @@ class ItemController extends Controller
 {
     public function index()
     {
+        $messages = ContactMessage::latest()->get();
         $items = DB::table('items')->get();
-        return view('dashboard.index', compact('items'));
+        return view('dashboard.index', compact('items', 'messages'));
     }
 
     public function create()
